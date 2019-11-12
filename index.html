@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,800&display=swap" rel="stylesheet">
+    <title>Jogo da Velha</title>
+</head>
+<body>
+    <div id="container">
+
+    </div>
+    <script src="js/jogo-da-velha.js"></script>
+    <script>
+        /* MENU's */
+        const containerEl = document.querySelector('#container');
+        
+        const menus = {
+            intro: () =>{
+                // Limpando Tudo o Container
+                containerEl.innerHTML = '';
+                // Criando o Wrapper
+                const wrapperEl = document.createElement('div');
+                wrapperEl.setAttribute('id','wrapper');
+                wrapperEl.style.width = '300px';
+                wrapperEl.style.height = '180px';
+                // Criando o H1
+                const tituloEl = document.createElement('h1');
+                tituloEl.innerHTML = 'Jogo da Velha';
+                // Criando o botão novo jogo
+                const novoEl = document.createElement('p');
+                novoEl.innerHTML = 'Novo Jogo';
+                novoEl.setAttribute('class', 'novo');
+                novoEl.setAttribute('onclick', 'menus.novo()');
+                // Criando o botão crédito
+                const creditosEl = document.createElement('p');
+                creditosEl.innerHTML = 'Créditos';
+                creditosEl.setAttribute('class', 'creditos');
+                // Animando o H1
+                function typeWrite(elemento){
+                    const textoArray = elemento.innerHTML.split('');
+                    elemento.innerHTML = '';
+                    textoArray.forEach((letra, i) => {
+                        setTimeout(()=> elemento.innerHTML += letra, 250*i);
+                    });
+                }
+                typeWrite(tituloEl);                // Chamando a animação
+                containerEl.appendChild(wrapperEl); // Inserindo na DOM
+                wrapperEl.appendChild(tituloEl);    // Inserindo na DOM
+                wrapperEl.appendChild(novoEl);      // Inserindo na DOM
+                wrapperEl.appendChild(creditosEl);  // Inserindo na DOM
+                
+            },
+            novo: () => {
+                // Limpando o container
+                containerEl.innerHTML = ''; 
+                // Criando o Wrapper e Modificando o CSS do mesmo
+                const wrapperEl = document.createElement('div');
+                wrapperEl.setAttribute('id','wrapper');
+                wrapperEl.innerHTML = '';
+                wrapperEl.style.width = '200px';
+                wrapperEl.style.height = '120px';
+                // Criando o Botão Local
+                const local = document.createElement('p');
+                local.setAttribute('class', 'local');
+                local.innerHTML = 'Jogar Local';
+                local.setAttribute('onclick', 'menus.newGame()');
+
+                // Criando o Botão Online(por enquanto fiz um voltar)   
+                const online = document.createElement('p');
+                online.setAttribute('class', 'online');
+                online.innerHTML = 'Voltar';    
+                online.setAttribute('onclick', 'menus.intro()');
+                // Inserindo na DOM
+                containerEl.appendChild(wrapperEl);
+                wrapperEl.appendChild(local);
+                wrapperEl.appendChild(online);
+
+                /**/
+            },
+            newGame: ()  => {
+                containerEl.innerHTML = '';
+                const menuEl = document.createElement('div');
+                menuEl.setAttribute('id','menu');
+                containerEl.appendChild(menuEl);
+                const voltarEl = document.createElement('p');
+                voltarEl.innerHTML = 'Voltar';
+                voltarEl.setAttribute('onclick', 'menus.novo()');
+                menuEl.appendChild(voltarEl);
+
+                const restartEl = document.createElement('p');
+                restartEl.innerHTML = 'Restart';
+                restartEl.setAttribute('onclick', 'jogoDaVelha.restart()');
+                menuEl.appendChild(restartEl);
+
+                const gameEl = document.createElement('div');
+                gameEl.setAttribute('class','game');
+                containerEl.appendChild(gameEl);
+
+                jogoDaVelha.init(gameEl);
+                jogoDaVelha.start();
+                
+            },
+        };
+
+        
+        menus.intro();
+
+    
+        
+
+    </script>
+</body>
+</html>
